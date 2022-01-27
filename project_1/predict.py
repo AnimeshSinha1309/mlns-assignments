@@ -10,7 +10,7 @@ from segment import segment
 if __name__ == "__main__":
     model.load_weights("weights/mnist.ckpt")
 
-    for i in range(3):
+    for i in range(1):
         x = np.load(f"data/data{i}.npy")
         y = np.load(f"data/lab{i}.npy")
 
@@ -18,11 +18,22 @@ if __name__ == "__main__":
         total, correct = 0, 0
         
         for i in iterator:
-            z = model.predict(segment(x[i]))
-            z = np.argmax(z, axis=1)
-            z = np.sum(z)
+            image = x[i].astype(np.int32)
+
+            segmented_images = segment(image)
+            p = model.predict(segmented_images)
+            p = np.argmax(p, axis=1)
+            z = np.sum(p)
 
             if y[i] == z:
                 correct += 1
+            # else:
+            #     for i in range(len(segmented_images)):
+            #         plt.subplot(1, len(segmented_images), 1 + i)
+            #         plt.imshow(segmented_images[i])
+            #         plt.title(f"{p[i]}")
+            #         plt.axis('off')
+            #     plt.show()
+
             total += 1
             iterator.set_postfix(accuracy=correct / total)
