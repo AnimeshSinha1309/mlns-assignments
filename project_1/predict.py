@@ -4,7 +4,7 @@ import tensorflow as tf
 import tqdm.auto as tqdm
 
 from model import model
-from segment import segment
+from contours import segment
 
 
 if __name__ == "__main__":
@@ -18,8 +18,7 @@ if __name__ == "__main__":
         total, correct = 0, 0
         
         for i in iterator:
-            image = x[i].astype(np.int32)
-
+            image = x[i]
             segmented_images = segment(image)
             p = model.predict(segmented_images)
             p = np.argmax(p, axis=1)

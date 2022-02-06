@@ -1,6 +1,5 @@
 import tensorflow as tf
 
-
 model = tf.keras.models.Sequential([
     tf.keras.layers.InputLayer(input_shape=(28, 28,), name = 'Block0-Input'),
     tf.keras.layers.Reshape((28, 28, 1), name = 'Block0-Reshape'),
