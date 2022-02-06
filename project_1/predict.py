@@ -16,7 +16,7 @@ if __name__ == "__main__":
 
         iterator = tqdm.trange(len(x))
         total, correct = 0, 0
-        
+
         for i in iterator:
             image = x[i]
             segmented_images = segment(image)

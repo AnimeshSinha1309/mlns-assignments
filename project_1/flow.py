@@ -16,7 +16,13 @@ def separate_digits(image):
                 g.add_edge((-2, -2), (i, j))
 
             for x, y in [(i - 1, j + 1), (i, j + 1), (i + 1, j + 1), (i + 1, j)]:
-                if x >= 0 and y >= 0 and x < image.shape[0] and y < image.shape[1] and image[x, y] > 0:
+                if (
+                    x >= 0
+                    and y >= 0
+                    and x < image.shape[0]
+                    and y < image.shape[1]
+                    and image[x, y] > 0
+                ):
                     g.add_edge((i, j), (x, y), capacity=image[i, j] + image[x, y])
 
     cut_value, partition = nx.minimum_cut(g, (-1, -1), (-2, -2))
